@@ -1,10 +1,15 @@
+import { Layout } from '@/layout/layout.component'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 export function AppRouter() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <div>Home</div>,
+      element: (
+        <Layout>
+          <div>Home</div>
+        </Layout>
+      ),
     },
     {
       path: '/detail',
