@@ -1,5 +1,6 @@
 import * as path from 'path'
 import { defineConfig } from 'vite'
+import { configDefaults } from 'vitest/config'
 
 export default defineConfig({
   server: {
@@ -10,5 +11,11 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './tests/setup.ts',
+    exclude: [...configDefaults.exclude, 'src/e2e'],
   },
 })
