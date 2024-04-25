@@ -17,16 +17,9 @@ export class Podcast implements IPodcast {
   }
 
   static fromPrimitives(value: IPodcastPrimitives): Podcast {
-    const id = value.id.label
-    const name = value['im:name'].label
-    const artist = value['im:artist'].label
-    const image = value['im:image'][3]
-
     return new Podcast({
-      id,
-      name,
-      artist,
-      image: { url: image.label, height: Parser.toIntNumber(image.attributes.height) },
+      ...value,
+      image: { url: value.image.url, height: Parser.toIntNumber(value.image.height) },
     })
   }
 }
