@@ -1,14 +1,18 @@
-import axios from 'axios'
+import { createClient } from '@/lib/http-client'
 import { Podcast } from '../domain/podcast'
 import { PodcastRepository } from '../domain/podcast.repository'
-import { AxiosResponse } from './dtos/podcast-api-response.dto'
+
+import { PodcastAPIResponse } from './dtos/podcast-api-response.dto'
 import { apiResponseToPrimitives } from './mappers/podcasts.mapper'
+
+const http = createClient({})
 
 export class ApiPodcastRepository implements PodcastRepository {
   async getAll(): Promise<Podcast[]> {
-    // TODO: add lib with http endpoints
-    const rawResponse: AxiosResponse = await axios.get(`${import.meta.env.VITE_API_URL}`)
-    const jsonPodcasts = apiResponseToPrimitives(rawResponse.data)
+    const rawResponse: PodcastAPIResponse = await http.get(
+      '/us/rss/toppodcasts/limit=100/genre=1310/json'
+    )
+    const jsonPodcasts = apiResponseToPrimitives(rawResponse)
     return jsonPodcasts.map(Podcast.fromPrimitives)
   }
 }

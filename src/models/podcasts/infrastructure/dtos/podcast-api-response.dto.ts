@@ -1,16 +1,3 @@
-export interface AxiosResponse {
-  data: Data
-  status: number
-  statusText: string
-  headers: Headers
-  config: Config
-  request: Request
-}
-
-export interface Data {
-  feed: Feed
-}
-
 export interface PodcastAPIResponse {
   feed: Feed
 }
@@ -175,39 +162,3 @@ interface Attributes9 {
 interface Id2 {
   label: string
 }
-
-interface Headers {
-  'cache-control': string
-  'content-length': string
-  'content-type': string
-}
-
-interface Config {
-  transitional: Transitional
-  adapter: string[]
-  transformRequest: unknown[]
-  transformResponse: unknown[]
-  timeout: number
-  xsrfCookieName: string
-  xsrfHeaderName: string
-  maxContentLength: number
-  maxBodyLength: number
-  env: Env
-  headers: Headers2
-  method: string
-  url: string
-}
-
-interface Transitional {
-  silentJSONParsing: boolean
-  forcedJSONParsing: boolean
-  clarifyTimeoutError: boolean
-}
-
-interface Env {}
-
-interface Headers2 {
-  Accept: string
-}
-
-interface Request {}
