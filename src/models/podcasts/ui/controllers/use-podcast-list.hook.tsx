@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Podcast } from '../../domain/podcast'
 import { PodcastLocator } from '../di/podcast.locator'
 
-export function usePodcastList() {
+export function usePodcastList(search: string = '') {
   const [podcasts, setPodcasts] = useState<Podcast[]>([])
 
   const getPodcasts = async () => {
@@ -11,9 +11,15 @@ export function usePodcastList() {
     setPodcasts(podcasts)
   }
 
+  const getPodcastsBySearch = async (str: string) => {
+    const getPodcastsBySearchQuery = PodcastLocator.getPodcastsBySearchQuery()
+    const filteredPodcasts = await getPodcastsBySearchQuery.execute(str)
+    setPodcasts(filteredPodcasts)
+  }
+
   useEffect(() => {
-    getPodcasts()
-  }, [])
+    search === '' ? getPodcasts() : getPodcastsBySearch(search)
+  }, [search])
 
   return { podcasts }
 }
