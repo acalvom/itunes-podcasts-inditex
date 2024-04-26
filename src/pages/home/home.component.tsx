@@ -4,7 +4,6 @@ import { PodcastList } from '@/models/podcasts/ui/components/podcast-list/podcas
 export const Home = () => {
   return (
     <Layout>
-      <h1>Home</h1>
       <PodcastList />
     </Layout>
   )
