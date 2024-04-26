@@ -1,21 +1,23 @@
 import axios, { AxiosResponse } from 'axios'
 
 interface ClientOptions {
-  baseURL: string
+  apiUrl: string
   withCredentials?: boolean
 }
 
-export const createClient = ({ baseURL, withCredentials = false }: ClientOptions) => {
-  const buildUrl = (path: string) => baseURL + (path.startsWith('/') ? path : `/${path}`)
+export const createClient = ({ apiUrl, withCredentials = false }: ClientOptions) => {
+  const axiosInstance = axios.create({
+    baseURL: 'https://api.allorigins.win/get?url=' + apiUrl,
+  })
 
   const get = async (path: string, { params = {}, headers = {} } = {}) => {
-    const url = buildUrl(path)
-
-    const { data }: AxiosResponse = await axios.get(url, {
+    const url = apiUrl + (path.startsWith('/') ? path : `/${path}`)
+    const { data }: AxiosResponse = await axiosInstance.get(url, {
       params,
       headers,
       withCredentials,
     })
+
     return data
   }
 
