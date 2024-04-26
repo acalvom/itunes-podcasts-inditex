@@ -6,7 +6,7 @@ import { PodcastAPIResponse } from './dtos/podcast-api-response.dto'
 import { rawToPodcast } from './mappers/podcasts.mapper'
 
 // TODO: inversion del control
-const http = createClient({})
+const http = createClient({ baseURL: import.meta.env.VITE_API_URL })
 
 export class ApiPodcastRepository implements PodcastRepository {
   async getAll(): Promise<Podcast[]> {
