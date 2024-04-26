@@ -3,5 +3,5 @@ type MainProps = {
 }
 
 export const Main = ({ children }: MainProps) => {
-  return <main className="flex-1 px-12 p-8 my-16">{children}</main>
+  return <main className="my-16 flex-1 p-8 px-12">{children}</main>
 }

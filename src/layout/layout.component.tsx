@@ -8,7 +8,7 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="flex flex-col min-h-screen my-auto">
+    <div className="my-auto flex min-h-screen flex-col">
       <Header />
       <Main>{children}</Main>
       <Footer />
