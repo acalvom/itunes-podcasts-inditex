@@ -4,6 +4,6 @@ interface BadgeProps {
 
 export const Badge = ({ content }: BadgeProps) => {
   return (
-    <div className="bg-blue-main m-auto p-2 font-semibold text-white rounded-lg">{content}</div>
+    <div className="m-auto rounded-lg bg-blue-main p-2 font-semibold text-white">{content}</div>
   )
 }

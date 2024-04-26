@@ -8,7 +8,7 @@ interface PodcastSearchProps {
 
 export const PodcastSearch = ({ count, setSearch }: PodcastSearchProps) => {
   return (
-    <div className="flex flex-row relative gap-2 w-56 mt-2 mb-4 mx-auto md:mr-0 md:ml-auto ">
+    <div className="relative mx-auto mb-4 mt-2 flex w-56 flex-row gap-2 md:ml-auto md:mr-0 ">
       <Badge content={count} />
       <SearchInput placeholder="Filter podcasts..." onSearch={(e) => setSearch(e.target.value)} />
     </div>
