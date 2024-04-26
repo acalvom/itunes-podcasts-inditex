@@ -1,5 +1,5 @@
 import { Badge } from '@/components/badge/badge.component'
-import { SearchInput } from '@/components/badge/search/search-input.component'
+import { SearchInput } from '@/components/search/search-input.component'
 
 interface PodcastSearchProps {
   count: number

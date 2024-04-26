@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { usePodcastList } from '../../controllers/use-podcast-list.hook'
+import { usePodcastList } from '../controllers/use-podcast-list.hook'
 import { PodcastSearch } from './podcast-search.component'
 import { PodcastCard } from './poscast-card.component'
 
