@@ -1,5 +1,6 @@
 import { Badge } from '@/components/badge/badge.component'
 import { SearchInput } from '@/components/search/search-input.component'
+import { useDebounce } from '@/shared/ui/controllers/use-debounce.hook'
 
 interface PodcastSearchProps {
   count: number
@@ -7,10 +8,13 @@ interface PodcastSearchProps {
 }
 
 export const PodcastSearch = ({ count, setSearch }: PodcastSearchProps) => {
+  const handleOnSearch = (e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)
+  const { debounceSearch } = useDebounce(handleOnSearch, 300)
+
   return (
-    <div className="flex flex-row relative gap-2 w-56 mt-2 mb-4 mx-auto md:mr-0 md:ml-auto ">
+    <div className="relative mx-auto mb-4 mt-2 flex w-56 flex-row gap-2 md:ml-auto md:mr-0 ">
       <Badge content={count} />
-      <SearchInput placeholder="Filter podcasts..." onSearch={(e) => setSearch(e.target.value)} />
+      <SearchInput placeholder="Filter podcasts..." onSearch={debounceSearch} />
     </div>
   )
 }
