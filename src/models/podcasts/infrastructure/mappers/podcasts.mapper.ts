@@ -7,5 +7,6 @@ export function rawToPodcast(apiResponse: PodcastAPIResponse): Podcast[] {
     name: item['im:name'].label,
     artist: item['im:artist'].label,
     image: item['im:image'][2].label,
+    description: item.summary.label,
   }))
 }
