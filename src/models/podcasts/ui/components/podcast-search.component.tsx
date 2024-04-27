@@ -12,7 +12,7 @@ export const PodcastSearch = ({ count, setSearch }: PodcastSearchProps) => {
   const { debounceSearch } = useDebounce(handleOnSearch, 300)
 
   return (
-    <div className="relative mx-auto mb-4 mt-2 flex w-56 flex-row gap-2 md:ml-auto md:mr-0 ">
+    <div className="relative mx-auto mb-4 mt-2 flex h-10 w-56 flex-row gap-2 md:ml-auto md:mr-0">
       <Badge content={count} />
       <SearchInput placeholder="Filter podcasts..." onSearch={debounceSearch} />
     </div>

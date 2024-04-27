@@ -19,7 +19,7 @@ export const PodcastList = () => {
           ))}
         </div>
       ) : (
-        <p className="my-8 text-center text-2xl font-bold text-blue-main md:text-4xl">
+        <p className="my-8 w-full text-center text-2xl font-bold text-blue-main md:text-4xl">
           No podcasts to show
         </p>
       )}

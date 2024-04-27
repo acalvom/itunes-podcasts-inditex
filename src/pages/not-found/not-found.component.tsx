@@ -1,9 +1,9 @@
-import { Layout } from '@/layout/layout.component'
+import { Layout } from '@/layout/base/layout.component'
 
 export const NotFound = () => {
   return (
     <Layout>
-      <p className="text-4xl text-blue-main font-semibold m-auto">This page does not exist</p>
+      <p className="m-auto text-4xl font-semibold text-blue-main">This page does not exist</p>
     </Layout>
   )
 }
