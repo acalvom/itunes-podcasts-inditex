@@ -1,4 +1,4 @@
-import { Loading } from '@/components/loading/loading.component'
+import { Loading } from '@/shared/ui/components/loading/loading.component'
 import { useState } from 'react'
 import { usePodcastList } from '../controllers/use-podcast-list.hook'
 import { PodcastSearch } from './podcast-search.component'

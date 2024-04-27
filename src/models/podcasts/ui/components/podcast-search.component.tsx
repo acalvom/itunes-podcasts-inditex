@@ -1,5 +1,5 @@
-import { Badge } from '@/components/badge/badge.component'
-import { SearchInput } from '@/components/search/search-input.component'
+import { Badge } from '@/shared/ui/components/badge/badge.component'
+import { SearchInput } from '@/shared/ui/components/search/search-input.component'
 import { useDebounce } from '@/shared/ui/controllers/use-debounce.hook'
 
 interface PodcastSearchProps {
