@@ -1,4 +1,5 @@
 import { Home } from '@/pages/home/home.component'
+import { PodcastDetail } from '@/pages/podcast-detail/podcast.detail.component'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 export function AppRouter() {
@@ -8,8 +9,8 @@ export function AppRouter() {
       element: <Home />,
     },
     {
-      path: '/detail',
-      element: <div>Podcast detail</div>,
+      path: '/podcast/:podcastId',
+      element: <PodcastDetail />,
     },
     {
       path: '/*',
