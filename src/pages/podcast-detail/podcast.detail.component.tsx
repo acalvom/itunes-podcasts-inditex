@@ -3,18 +3,14 @@ import { LayoutPodcast } from '@/models/podcasts/ui/layout/layout-podcast.compon
 import { useParams } from 'react-router-dom'
 
 export const PodcastDetail = () => {
-  const { podcastId } = useParams()
+  const params = useParams()
+  const podcastId = params.podcastId || ''
 
-  // TODO: refacotr this code. Add not found page
   return (
     <Layout>
-      {podcastId !== undefined ? (
-        <LayoutPodcast podcastId={podcastId}>
-          <div>Episodes for podcast: {podcastId}</div>
-        </LayoutPodcast>
-      ) : (
-        <p>No existe</p>
-      )}
+      <LayoutPodcast podcastId={podcastId}>
+        <div>Episodes for podcast: {podcastId}</div>
+      </LayoutPodcast>
     </Layout>
   )
 }
