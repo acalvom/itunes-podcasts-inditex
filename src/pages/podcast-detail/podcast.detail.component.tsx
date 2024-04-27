@@ -1,5 +1,5 @@
-import { Layout } from '@/layout/layout.component'
-import { LayoutPodcast } from '@/models/podcasts/ui/layout/layout-podcast.component'
+import { LayoutTwoColumns } from '@/layout/two-columns/layout-two-columns.component'
+import { PodcastDetailCard } from '@/models/podcasts/ui/components/podcast-detail-card.component'
 import { useParams } from 'react-router-dom'
 
 export const PodcastDetail = () => {
@@ -7,10 +7,9 @@ export const PodcastDetail = () => {
   const podcastId = params.podcastId || ''
 
   return (
-    <Layout>
-      <LayoutPodcast podcastId={podcastId}>
-        <div>Episodes for podcast: {podcastId}</div>
-      </LayoutPodcast>
-    </Layout>
+    <LayoutTwoColumns>
+      <PodcastDetailCard podcastId={podcastId} />
+      <div>Episodes for podcast: {podcastId}</div>
+    </LayoutTwoColumns>
   )
 }
