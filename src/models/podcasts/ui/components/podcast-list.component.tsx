@@ -1,4 +1,4 @@
-import { Loading } from '@/components/loading/loading.component'
+import { Loading } from '@/shared/ui/components/loading/loading.component'
 import { useState } from 'react'
 import { usePodcastList } from '../controllers/use-podcast-list.hook'
 import { PodcastSearch } from './podcast-search.component'
@@ -19,7 +19,7 @@ export const PodcastList = () => {
           ))}
         </div>
       ) : (
-        <p className="text-blue-main text-center text-2xl md:text-4xl font-bold my-8">
+        <p className="my-8 w-full text-center text-2xl font-bold text-blue-main md:text-4xl">
           No podcasts to show
         </p>
       )}

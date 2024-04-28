@@ -1,8 +1,8 @@
 import { createClient } from '@/lib/http-client'
+import { Escape } from '@/shared/domain/char-escaper/escape'
+import { Id } from '@/shared/domain/interfaces/id'
 import { Podcast } from '../domain/podcast'
 import { PodcastRepository } from '../domain/podcast.repository'
-
-import { Escape } from '@/shared/domain/char-escaper/escape'
 import { PodcastAPIResponse } from './dtos/podcast-api-response.dto'
 import { rawToPodcast } from './mappers/podcasts.mapper'
 
@@ -29,5 +29,10 @@ export class ApiPodcastRepository implements PodcastRepository {
         Escape.toLower(podcast.name).includes(escapedSearch) ||
         Escape.toLower(podcast.name).includes(escapedSearch)
     )
+  }
+
+  async getById(id: Id): Promise<Podcast | undefined> {
+    const podcasts = await this.getPodcastsFromApi()
+    return podcasts.find((podcast) => podcast.id === id)
   }
 }
