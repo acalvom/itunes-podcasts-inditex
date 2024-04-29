@@ -1,4 +1,5 @@
 import { LayoutTwoColumns } from '@/layout/two-columns/layout-two-columns.component'
+import { EpisodeList } from '@/models/podcasts/ui/components/episode-list.component'
 import { PodcastDetailCard } from '@/models/podcasts/ui/components/podcast-detail-card.component'
 import { useParams } from 'react-router-dom'
 
@@ -9,7 +10,7 @@ export const PodcastDetail = () => {
   return (
     <LayoutTwoColumns>
       <PodcastDetailCard podcastId={podcastId} />
-      <div>Episodes for podcast: {podcastId}</div>
+      <EpisodeList podcastId={podcastId} />
     </LayoutTwoColumns>
   )
 }
