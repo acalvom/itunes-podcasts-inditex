@@ -23,7 +23,6 @@
     /* Router */
     "baseUrl": "./",
     "paths": {
-      "@/layout": ["./src/layout/*"],
       "@/*": ["./src/*"]
     }
   },
