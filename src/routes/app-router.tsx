@@ -15,7 +15,7 @@ export function AppRouter() {
     },
     {
       path: '/podcast/:podcastId/episode/:episodeId',
-      element: <PodcastDetail />,
+      element: <h1>Reproductor</h1>,
     },
     {
       path: '/*',
