@@ -8,10 +8,12 @@ export class Datetime {
   }
 
   static getDateFormatted(date: Date): string {
-    return dayjs(date).format('DD-MM-YYYY')
+    return dayjs(date).format('DD/MM/YYYY')
   }
 
   static getLenghtfromMs(ms: number): string {
-    return dayjs.duration(ms).format('HH:mm')
+    const duration = dayjs.duration(ms)
+    const isOverOneHour = duration.asHours() >= 1
+    return duration.format(isOverOneHour ? 'H:mm' : 'mm:ss')
   }
 }
