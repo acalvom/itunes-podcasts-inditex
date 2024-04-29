@@ -3,5 +3,5 @@ interface MainDetailProps {
 }
 
 export const MainColumn = ({ children }: MainDetailProps) => {
-  return <main className="my-4 flex flex-1 flex-wrap px-4 py-8 md:ml-16">{children}</main>
+  return <main className="my-4 flex flex-1 flex-wrap px-4 py-8 lg:ml-16">{children}</main>
 }
