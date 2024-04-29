@@ -1,3 +1,4 @@
+import { GetEpisodesByPodcastIdQuery } from '../../application/get-episodes-by-podcast-id.query'
 import { GetPodcastByIdQuery } from '../../application/get-podcast-by-id.query'
 import { GetPodcastsBySearchQuery } from '../../application/get-podcasts-by-search.query'
 import { GetPodcastsQuery } from '../../application/get-podcasts.query'
@@ -16,5 +17,9 @@ export class PodcastLocator {
 
   static getPodcastByIdQuery() {
     return new GetPodcastByIdQuery(this.apiPodcastRepository)
+  }
+
+  static getEpisodesByPodcastIdQuery() {
+    return new GetEpisodesByPodcastIdQuery(this.apiPodcastRepository)
   }
 }
