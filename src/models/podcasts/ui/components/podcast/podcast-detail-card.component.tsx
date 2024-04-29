@@ -1,5 +1,5 @@
 import { Loading } from '@/shared/ui/components/loading/loading.component'
-import { usePodcast } from '../controllers/use-podcast-by-id.hook'
+import { usePodcast } from '../../controllers/use-podcast-by-id.hook'
 
 export const PodcastDetailCard = ({ podcastId }: { podcastId: string }) => {
   const { podcast, isFetching } = usePodcast(podcastId)
@@ -8,7 +8,7 @@ export const PodcastDetailCard = ({ podcastId }: { podcastId: string }) => {
     <>
       {isFetching && <Loading />}
       {podcast && (
-        <div className="flex flex-col divide-y rounded-sm  px-4 py-8 shadow-xl">
+        <div className="flex h-min flex-col divide-y rounded-sm px-4 py-8 shadow-xl">
           <div className="my-3 flex justify-center rounded-lg">
             <img className="max-w-48 rounded-lg" src={podcast.image} alt={podcast.name} />
           </div>
