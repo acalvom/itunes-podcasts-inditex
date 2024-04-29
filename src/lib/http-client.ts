@@ -5,7 +5,11 @@ interface ClientOptions {
   withCredentials?: boolean
 }
 
-export const createClient = ({ apiUrl, withCredentials = false }: ClientOptions) => {
+export interface HttpClient {
+  get: any
+}
+
+export const createClient = ({ apiUrl, withCredentials = false }: ClientOptions): HttpClient => {
   const axiosInstance = axios.create({
     baseURL: 'https://api.allorigins.win/get?url=' + apiUrl,
   })
