@@ -1,5 +1,5 @@
 import { Loading } from '@/shared/ui/components/loading/loading.component'
-import { usePodcast } from '../controllers/use-podcast-by-id.hook'
+import { usePodcast } from '../../controllers/use-podcast-by-id.hook'
 
 export const PodcastDetailCard = ({ podcastId }: { podcastId: string }) => {
   const { podcast, isFetching } = usePodcast(podcastId)
