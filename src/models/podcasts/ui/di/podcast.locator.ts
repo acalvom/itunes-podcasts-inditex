@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/http-client'
+import { GetEpisodeByIdQuery } from '../../application/get-episode-by-id.query'
 import { GetEpisodesByPodcastIdQuery } from '../../application/get-episodes-by-podcast-id.query'
 import { GetPodcastByIdQuery } from '../../application/get-podcast-by-id.query'
 import { GetPodcastsBySearchQuery } from '../../application/get-podcasts-by-search.query'
@@ -24,5 +25,9 @@ export class PodcastLocator {
 
   static getEpisodesByPodcastIdQuery() {
     return new GetEpisodesByPodcastIdQuery(this.apiPodcastRepository)
+  }
+
+  static getEpisodeByIdQuery() {
+    return new GetEpisodeByIdQuery(this.apiPodcastRepository)
   }
 }

@@ -1,3 +1,4 @@
+import { EpisodeDetail } from '@/pages/episode-detail/episode-detail.component'
 import { Home } from '@/pages/home/home.component'
 import { NotFound } from '@/pages/not-found/not-found.component'
 import { PodcastDetail } from '@/pages/podcast-detail/podcast.detail.component'
@@ -15,7 +16,7 @@ export function AppRouter() {
     },
     {
       path: '/podcast/:podcastId/episode/:episodeId',
-      element: <h1>Reproductor</h1>,
+      element: <EpisodeDetail />,
     },
     {
       path: '/*',

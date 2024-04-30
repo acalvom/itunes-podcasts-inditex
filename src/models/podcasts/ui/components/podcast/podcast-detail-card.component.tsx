@@ -1,4 +1,5 @@
 import { Loading } from '@/shared/ui/components/loading/loading.component'
+import { Link } from 'react-router-dom'
 import { usePodcast } from '../../controllers/use-podcast-by-id.hook'
 
 export const PodcastDetailCard = ({ podcastId }: { podcastId: string }) => {
@@ -13,7 +14,9 @@ export const PodcastDetailCard = ({ podcastId }: { podcastId: string }) => {
             <img className="max-w-48 rounded-lg" src={podcast.image} alt={podcast.name} />
           </div>
           <div className="flex flex-col p-4 align-middle">
-            <p className="font-semibold">{podcast.name}</p>
+            <Link to={`/podcast/${podcast.id}`} className="hover:text-blue-main hover:underline">
+              <p className="font-semibold">{podcast.name}</p>
+            </Link>
             <p className="italic">by {podcast.artist}</p>
           </div>
           <div className="flex flex-col p-2 align-middle">

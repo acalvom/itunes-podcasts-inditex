@@ -7,4 +7,5 @@ export interface PodcastRepository {
   getBySearch(search: string): Promise<Podcast[]>
   getById(id: Id): Promise<Podcast | undefined>
   getEpisodesById(id: Id): Promise<Episode[]>
+  getEpisodeById(id: Id, podcastId: Id): Promise<Episode | undefined>
 }

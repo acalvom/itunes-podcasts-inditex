@@ -47,4 +47,9 @@ export class ApiPodcastRepository implements PodcastRepository {
   async getEpisodesById(id: Id): Promise<Episode[]> {
     return await this.getEpisodesFromApi(id)
   }
+
+  async getEpisodeById(id: string, podcastId: string): Promise<Episode | undefined> {
+    const episodes = await this.getEpisodesFromApi(podcastId)
+    return episodes.find((episode) => episode.id === id)
+  }
 }
