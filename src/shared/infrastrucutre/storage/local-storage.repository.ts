@@ -9,4 +9,8 @@ export class StoragePodcastRepository implements Storage {
   set<T>(key: string, value: T): void {
     localStorage.setItem(key, JSON.stringify(value))
   }
+
+  clear(): void {
+    localStorage.clear()
+  }
 }

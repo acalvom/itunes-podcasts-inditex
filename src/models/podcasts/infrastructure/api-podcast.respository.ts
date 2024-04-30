@@ -1,6 +1,8 @@
 import { HttpClient } from '@/lib/http-client'
 import { Escape } from '@/shared/domain/char-escaper/escape'
+import { Datetime } from '@/shared/domain/dates/datetime'
 import { Id } from '@/shared/domain/interfaces/id'
+import { Parser } from '@/shared/domain/parser/parser'
 import { Storage } from '@/shared/domain/storage/storage.repository'
 import { Episode } from '../domain/episode'
 import { Podcast } from '../domain/podcast'
@@ -14,7 +16,18 @@ export class ApiPodcastRepository implements PodcastRepository {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly storage: Storage
-  ) {}
+  ) {
+    this.checkCache()
+  }
+
+  private checkCache(): void {
+    const cacheOn: string = this.storage.get('cache_on')
+    const expiredCache = Datetime.isOverOneHour(Parser.toIntNumber(cacheOn))
+    if (!cacheOn || expiredCache) {
+      this.storage.clear()
+      this.storage.set('cache_on', Date.now())
+    }
+  }
 
   private getPodcastsFromCache(): Podcast[] {
     return this.storage.get('podcasts')
