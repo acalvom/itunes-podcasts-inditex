@@ -16,4 +16,9 @@ export class Datetime {
     const isOverOneHour = duration.asHours() >= 1
     return duration.format(isOverOneHour ? 'H:mm' : 'mm:ss')
   }
+
+  static isOverOneHour(ms: number): boolean {
+    const now = dayjs().valueOf()
+    return now - ms >= 360000
+  }
 }

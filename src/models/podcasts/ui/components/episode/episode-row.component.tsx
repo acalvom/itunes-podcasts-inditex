@@ -9,7 +9,7 @@ interface EpisodeRowProps {
 
 export const EpisodeRow = ({ episode, podcastId }: EpisodeRowProps) => {
   return (
-    <div className="grid-cols-50/30/20 md:grid-cols-60/20/15 grid gap-2 border-t-2 border-slate-200 px-2 py-2 odd:bg-white even:bg-gray-100">
+    <div className="grid-cols-50/30/20 md:grid-cols-60/20/15 border-grey-main grid gap-2 border-t-2 px-2 py-2 odd:bg-white even:bg-gray-100">
       <Link
         to={`/podcast/${podcastId}/episode/${episode.id}`}
         className="text-blue-main hover:underline"
