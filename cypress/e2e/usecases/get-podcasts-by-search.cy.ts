@@ -1,6 +1,6 @@
 import { mockPodcasts } from '../mocks/podcasts'
 
-describe('List all podcasts workflow', () => {
+describe('List of search podcasts workflow', () => {
   const appUrl = `${Cypress.env('appUrl')}`
   const apiUrl = `${Cypress.env('apiUrl')}`
 

@@ -1,3 +1,4 @@
+import { mockEpisode } from '../mocks/episode'
 import { mockEpisodes } from '../mocks/episodes'
 import { mockPodcast } from '../mocks/podcast'
 
@@ -75,5 +76,10 @@ describe('Get podcast by id workflow', () => {
         JSON.stringify(mockEpisodes)
       )
     })
+  })
+
+  it('Navigate to episode detail', () => {
+    cy.getByTestId('episode-grid').children().last().click()
+    cy.url().should('eq', appUrl + '/podcast/' + mockPodcast.id + '/episode/' + mockEpisode.id)
   })
 })
