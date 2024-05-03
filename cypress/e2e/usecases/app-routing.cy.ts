@@ -1,16 +1,27 @@
 describe('List all podcasts workflow', () => {
   const appUrl = `${Cypress.env('appUrl')}`
   const apiUrl = `${Cypress.env('apiUrl')}`
+  const alloriginsUrl = 'https://api.allorigins.win/get?url='
 
   before(() => {
+    cy.clearLocalStorage()
     cy.intercept(
-      { method: 'GET', url: apiUrl + '/us/rss/toppodcasts/limit=100/genre=1310/json' },
+      {
+        method: 'GET',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(apiUrl + '/us/rss/toppodcasts/limit=100/genre=1310/json'),
+      },
       { fixture: 'podcasts-from-api.json' }
     ).as('getPodcastsFromApi')
     cy.intercept(
       {
         method: 'GET',
-        url: apiUrl + '/lookup?id=1535809341&media=podcast&entity=podcastEpisode&limit=1000',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(
+            apiUrl + '/lookup?id=does-not-exist&media=podcast&entity=podcastEpisode&limit=1000'
+          ),
       },
       { fixture: 'episodes-from-api.json' }
     ).as('getPodcastsFromApi')

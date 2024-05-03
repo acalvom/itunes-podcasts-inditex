@@ -4,10 +4,18 @@ import { mockPodcast } from '../mocks/podcast'
 describe('Get episode detail workflow', () => {
   const appUrl = `${Cypress.env('appUrl')}`
   const apiUrl = `${Cypress.env('apiUrl')}`
+  const alloriginsUrl = 'https://api.allorigins.win/get?url='
 
   it('Click on an episode from the list', () => {
     cy.intercept(
-      `${apiUrl}/lookup?id=${mockPodcast.id}&media=podcast&entity=podcastEpisode&limit=1000`,
+      {
+        method: 'GET',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(
+            `${apiUrl}/lookup?id=${mockPodcast.id}&media=podcast&entity=podcastEpisode&limit=1000`
+          ),
+      },
       { fixture: 'episodes-from-api.json' }
     ).as('getEpisodesFromApi')
 

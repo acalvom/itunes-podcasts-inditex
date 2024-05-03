@@ -5,11 +5,17 @@ import { mockPodcast } from '../mocks/podcast'
 describe('Get podcast by id workflow', () => {
   const appUrl = `${Cypress.env('appUrl')}`
   const apiUrl = `${Cypress.env('apiUrl')}`
+  const alloriginsUrl = 'https://api.allorigins.win/get?url='
 
   before(() => {
     cy.clearLocalStorage()
     cy.intercept(
-      { method: 'GET', url: apiUrl + '/us/rss/toppodcasts/limit=100/genre=1310/json' },
+      {
+        method: 'GET',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(apiUrl + '/us/rss/toppodcasts/limit=100/genre=1310/json'),
+      },
       { fixture: 'podcasts-from-api.json' }
     ).as('getPodcastsFromApi')
 
@@ -23,7 +29,14 @@ describe('Get podcast by id workflow', () => {
 
   it('Type an unexisting podcast in the url: 400 error', () => {
     cy.intercept(
-      apiUrl + '/lookup?id=does-not-exist&media=podcast&entity=podcastEpisode&limit=1000',
+      {
+        method: 'GET',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(
+            apiUrl + '/lookup?id=does-not-exist&media=podcast&entity=podcastEpisode&limit=1000'
+          ),
+      },
       { statusCode: 400, fixture: 'episodes-not-found.json' }
     ).as('getEpisodes400Error')
 
@@ -43,7 +56,14 @@ describe('Get podcast by id workflow', () => {
 
   it('Click on a podcast from the list', () => {
     cy.intercept(
-      `${apiUrl}/lookup?id=${mockPodcast.id}&media=podcast&entity=podcastEpisode&limit=1000`,
+      {
+        method: 'GET',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(
+            `${apiUrl}/lookup?id=${mockPodcast.id}&media=podcast&entity=podcastEpisode&limit=1000`
+          ),
+      },
       { fixture: 'episodes-from-api.json' }
     ).as('getEpisodesFromApi')
 
@@ -58,7 +78,7 @@ describe('Get podcast by id workflow', () => {
     cy.getByTestId('podcast-artist').should('contain.text', mockPodcast.artist)
     cy.getByTestId('podcast-description').should('have.text', mockPodcast.description)
 
-    cy.getByTestId('episode-grid').children().should('have.length', 6)
+    cy.getByTestId('episode-grid').children().should('have.length', 201)
     cy.getByTestId('episode-grid').children().first().should('contain.text', 'TitleDateDuration')
 
     cy.getByTestId('podcast-name').parent().click()
