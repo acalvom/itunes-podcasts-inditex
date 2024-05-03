@@ -11,7 +11,6 @@ import { PodcastAPIResponse } from './dtos/podcast-api-response.dto'
 import { EpisodesAPIResponse } from './dtos/podcast-episodes-api-response.dto'
 import { rawToEpisodes, rawToPodcast } from './mappers/podcasts.mapper'
 
-// TODO: muy verboso - Este bebe de Api y Local
 export class ApiPodcastRepository implements PodcastRepository {
   constructor(
     private readonly httpClient: HttpClient,
@@ -22,7 +21,7 @@ export class ApiPodcastRepository implements PodcastRepository {
 
   private checkCache(): void {
     const cacheOn: string = this.storage.get('cache_on')
-    const expiredCache = Datetime.isOverOneHour(Parser.toIntNumber(cacheOn))
+    const expiredCache = Datetime.isOverOneDay(Parser.toIntNumber(cacheOn))
     if (!cacheOn || expiredCache) {
       this.storage.clear()
       this.storage.set('cache_on', Date.now())
