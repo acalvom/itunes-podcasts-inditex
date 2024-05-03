@@ -1,4 +1,4 @@
-describe('List all podcasts workflow', () => {
+describe('Navigate through the app workflow', () => {
   const appUrl = `${Cypress.env('appUrl')}`
   const apiUrl = `${Cypress.env('apiUrl')}`
   const alloriginsUrl = 'https://api.allorigins.win/get?url='

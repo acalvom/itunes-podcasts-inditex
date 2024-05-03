@@ -23,6 +23,7 @@ export const EpisodeDetailCard = ({ episodeId, podcastId }: EpisodeDetailCardPro
           <audio
             src={episode.url}
             controls
+            muted
             className="w-full pt-4"
             data-testid="episode-audio"
           ></audio>

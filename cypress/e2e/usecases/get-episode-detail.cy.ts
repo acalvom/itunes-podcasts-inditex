@@ -6,7 +6,20 @@ describe('Get episode detail workflow', () => {
   const apiUrl = `${Cypress.env('apiUrl')}`
   const alloriginsUrl = 'https://api.allorigins.win/get?url='
 
-  it('Click on an episode from the list', () => {
+  before(() => {
+    cy.intercept(
+      {
+        method: 'GET',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(apiUrl + '/us/rss/toppodcasts/limit=100/genre=1310/json'),
+      },
+      { fixture: 'podcasts-from-api.json' }
+    ).as('getPodcastsFromApi')
+
+    cy.visit(appUrl)
+    cy.wait('@getPodcastsFromApi')
+
     cy.intercept(
       {
         method: 'GET',
@@ -18,7 +31,9 @@ describe('Get episode detail workflow', () => {
       },
       { fixture: 'episodes-from-api.json' }
     ).as('getEpisodesFromApi')
+  })
 
+  it('Click on an episode from the list', () => {
     cy.visit(appUrl + '/podcast/' + mockPodcast.id + '/episode/' + mockEpisode.id)
     cy.wait('@getEpisodesFromApi')
 
