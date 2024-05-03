@@ -10,8 +10,12 @@ export const PodcastCard = ({ podcast }: { podcast: Podcast }) => {
 
       <div className="mt-20 overflow-hidden rounded-md bg-white pt-10 shadow-xl">
         <div className="px-6 py-4">
-          <div className="mb-2 text-center text-xl font-bold">{podcast.name}</div>
-          <p className="text-center text-base text-gray-700">{podcast.artist}</p>
+          <h3 className="mb-2 text-center text-xl font-bold" data-testid="podcast-name">
+            {podcast.name}
+          </h3>
+          <p className="text-center text-base text-gray-700" data-testid="podcast-artist">
+            {podcast.artist}
+          </p>
         </div>
       </div>
     </Link>

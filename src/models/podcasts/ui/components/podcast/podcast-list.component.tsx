@@ -13,13 +13,19 @@ export const PodcastList = () => {
       {isFetching && <Loading />}
       {!isFetching && <PodcastSearch count={podcasts.length} setSearch={setSearch} />}
       {hasPodcasts ? (
-        <div className="container mx-auto flex flex-wrap justify-center gap-4">
+        <div
+          className="container mx-auto flex flex-wrap justify-center gap-4"
+          data-testid="podcast-list"
+        >
           {podcasts.map((podcast) => (
             <PodcastCard podcast={podcast} key={podcast.id} />
           ))}
         </div>
       ) : (
-        <p className="my-8 w-full text-center text-2xl font-bold text-blue-main md:text-4xl">
+        <p
+          className="my-8 w-full text-center text-2xl font-bold text-blue-main md:text-4xl"
+          data-testid="podcast-none"
+        >
           No podcasts to show
         </p>
       )}

@@ -13,7 +13,10 @@ export const EpisodeList = ({ podcastId }: { podcastId: string }) => {
       {hasEpisodes ? (
         <EpisodeGrid episodes={episodes} podcastId={podcastId} />
       ) : (
-        <p className="my-8 w-full text-center text-2xl font-bold text-blue-main md:text-4xl">
+        <p
+          className="my-8 w-full text-center text-2xl font-bold text-blue-main md:text-4xl"
+          data-testid="no-episodes-found"
+        >
           No episodes to show
         </p>
       )}
