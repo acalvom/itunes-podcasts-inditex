@@ -7,8 +7,7 @@ import { Storage } from '@/shared/domain/storage/storage.repository'
 import { Episode } from '../domain/episode'
 import { Podcast } from '../domain/podcast'
 import { PodcastRepository } from '../domain/podcast.repository'
-import { PodcastAPIResponse } from './dtos/podcast-api-response.dto'
-import { EpisodesAPIResponse } from './dtos/podcast-episodes-api-response.dto'
+import { AllowOriginsResponse } from './dtos/alloworigins-response.dto'
 import { rawToEpisodes, rawToPodcast } from './mappers/podcasts.mapper'
 
 export class ApiPodcastRepository implements PodcastRepository {
@@ -53,14 +52,14 @@ export class ApiPodcastRepository implements PodcastRepository {
   }
 
   private async getPodcastsFromApi(): Promise<Podcast[]> {
-    const rawResponse: PodcastAPIResponse = await this.httpClient.get(
+    const rawResponse: AllowOriginsResponse = await this.httpClient.get(
       '/us/rss/toppodcasts/limit=100/genre=1310/json'
     )
     return rawToPodcast(rawResponse)
   }
 
   private async getEpisodesFromApi(podcastId: string): Promise<Episode[]> {
-    const rawResponse: EpisodesAPIResponse = await this.httpClient.get(
+    const rawResponse: AllowOriginsResponse = await this.httpClient.get(
       `/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=1000`
     )
     return rawToEpisodes(rawResponse)
