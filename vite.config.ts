@@ -5,6 +5,8 @@ import { configDefaults } from 'vitest/config'
 export default defineConfig({
   server: {
     open: true,
+    host: true,
+    strictPort: true,
     port: 3000,
   },
   resolve: {
