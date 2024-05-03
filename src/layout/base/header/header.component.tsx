@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export const Header = () => {
   return (
     <header
-      className="bg-grey-light fixed top-0 z-10 w-full border-b-2 border-blue-light px-8 py-4 shadow-sm"
+      className="fixed top-0 z-10 w-full border-b-2 border-blue-light bg-grey-light px-8 py-4 shadow-sm"
       data-testid="app-header"
     >
       <nav className="flex flex-row items-center ">
