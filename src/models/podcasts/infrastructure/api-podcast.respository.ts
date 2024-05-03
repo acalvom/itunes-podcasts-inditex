@@ -51,6 +51,14 @@ export class ApiPodcastRepository implements PodcastRepository {
     this.storage.set('episodes_from_' + podcastId, episodes)
   }
 
+  private getEpisodeFromCache(podcastId: Id, episodeId: Id): Episode {
+    return this.storage.get('episode_' + episodeId + '_from_' + podcastId)
+  }
+
+  private setEpisodeToCache(podcastId: Id, episodeId: Id, episode: Episode): void {
+    this.storage.set('episode_' + episodeId + 'from_' + podcastId, episode)
+  }
+
   private async getPodcastsFromApi(): Promise<Podcast[]> {
     const rawResponse: AllowOriginsResponse = await this.httpClient.get(
       '/us/rss/toppodcasts/limit=100/genre=1310/json'
@@ -106,7 +114,14 @@ export class ApiPodcastRepository implements PodcastRepository {
   }
 
   async getEpisodeById(id: string, podcastId: string): Promise<Episode | undefined> {
-    const episodes = await this.getEpisodesFromApi(podcastId)
-    return episodes.find((episode) => episode.id === id)
+    const episodeCache = this.getEpisodeFromCache(podcastId, id)
+    if (episodeCache) return episodeCache
+
+    const episodes =
+      this.getEpisodesFromCache(podcastId) || (await this.getEpisodesFromApi(podcastId))
+    const episode = episodes.find((episode) => episode.id === id)
+    if (episode) this.setEpisodeToCache(podcastId, id, episode)
+
+    return episode
   }
 }
