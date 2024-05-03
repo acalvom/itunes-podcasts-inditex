@@ -11,11 +11,11 @@ export interface HttpClient {
 
 export const createClient = ({ apiUrl, withCredentials = false }: ClientOptions): HttpClient => {
   const axiosInstance = axios.create({
-    baseURL: 'https://api.allorigins.win/get?url=' + apiUrl,
+    baseURL: apiUrl,
   })
 
   const get = async (path: string, { params = {}, headers = {} } = {}) => {
-    const url = apiUrl + (path.startsWith('/') ? path : `/${path}`)
+    const url = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl + (path.startsWith('/') ? path : `/${path}`))}`
     const { data }: AxiosResponse = await axiosInstance.get(url, {
       params,
       headers,

@@ -3,12 +3,18 @@ import { mockPodcasts } from '../mocks/podcasts'
 describe('List of search podcasts workflow', () => {
   const appUrl = `${Cypress.env('appUrl')}`
   const apiUrl = `${Cypress.env('apiUrl')}`
+  const alloriginsUrl = 'https://api.allorigins.win/get?url='
 
   before(() => {
     cy.visit(appUrl)
     cy.clearLocalStorage()
     cy.intercept(
-      { method: 'GET', url: apiUrl + '/us/rss/toppodcasts/limit=100/genre=1310/json' },
+      {
+        method: 'GET',
+        url:
+          alloriginsUrl +
+          encodeURIComponent(apiUrl + '/us/rss/toppodcasts/limit=100/genre=1310/json'),
+      },
       { fixture: 'podcasts-from-api.json' }
     ).as('getPodcastsFromApi')
     cy.visit(appUrl)
@@ -19,10 +25,10 @@ describe('List of search podcasts workflow', () => {
     cy.getByTestId('search-input').clear()
   })
 
-  it('Search input is empty and 3 podcasts are shown', () => {
+  it('Search input is empty and 100 podcasts are shown', () => {
     cy.getByTestId('podcast-list')
       .children()
-      .should('have.length', 3)
+      .should('have.length', 100)
       .each((_, index) => {
         cy.getByTestId('podcast-name').should('contain.text', mockPodcasts[index].name)
         cy.getByTestId('podcast-artist').should('contain.text', mockPodcasts[index].artist)
@@ -31,7 +37,7 @@ describe('List of search podcasts workflow', () => {
     cy.getByTestId('search-input')
       .should('be.empty')
       .and('have.attr', 'placeholder', 'Filter podcasts...')
-    cy.getByTestId('count-badge').should('have.text', '3')
+    cy.getByTestId('count-badge').should('have.text', '100')
   })
 
   it('Type an unexisting podcast', () => {
@@ -70,13 +76,16 @@ describe('List of search podcasts workflow', () => {
   it('Search a podcast by artist', () => {
     cy.getByTestId('search-input').type('Effect')
     cy.getByTestId('search-input').should('have.value', 'Effect')
-    cy.getByTestId('count-badge').should('have.text', '1')
+    cy.getByTestId('count-badge').should('have.text', '2')
     cy.getByTestId('podcast-list')
       .children()
-      .should('have.length', 1)
+      .should('have.length', 2)
       .each((_) => {
-        cy.getByTestId('podcast-name').should('have.text', 'R&B Money')
-        cy.getByTestId('podcast-artist').should('have.text', 'The Black Effect and iHeartPodcasts')
+        cy.getByTestId('podcast-name').should('contain.text', 'BIG FACTS with Big Bank & DJ Scream')
+        cy.getByTestId('podcast-artist').should(
+          'contain.text',
+          'The Black Effect and iHeartPodcasts'
+        )
       })
   })
 })

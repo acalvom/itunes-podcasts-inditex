@@ -7,11 +7,9 @@ import { Storage } from '@/shared/domain/storage/storage.repository'
 import { Episode } from '../domain/episode'
 import { Podcast } from '../domain/podcast'
 import { PodcastRepository } from '../domain/podcast.repository'
-import { PodcastAPIResponse } from './dtos/podcast-api-response.dto'
-import { EpisodesAPIResponse } from './dtos/podcast-episodes-api-response.dto'
+import { AllowOriginsResponse } from './dtos/alloworigins-response.dto'
 import { rawToEpisodes, rawToPodcast } from './mappers/podcasts.mapper'
 
-// TODO: muy verboso - Este bebe de Api y Local
 export class ApiPodcastRepository implements PodcastRepository {
   constructor(
     private readonly httpClient: HttpClient,
@@ -22,7 +20,7 @@ export class ApiPodcastRepository implements PodcastRepository {
 
   private checkCache(): void {
     const cacheOn: string = this.storage.get('cache_on')
-    const expiredCache = Datetime.isOverOneHour(Parser.toIntNumber(cacheOn))
+    const expiredCache = Datetime.isOverOneDay(Parser.toIntNumber(cacheOn))
     if (!cacheOn || expiredCache) {
       this.storage.clear()
       this.storage.set('cache_on', Date.now())
@@ -53,15 +51,23 @@ export class ApiPodcastRepository implements PodcastRepository {
     this.storage.set('episodes_from_' + podcastId, episodes)
   }
 
+  private getEpisodeFromCache(podcastId: Id, episodeId: Id): Episode {
+    return this.storage.get('episode_' + episodeId + '_from_' + podcastId)
+  }
+
+  private setEpisodeToCache(podcastId: Id, episodeId: Id, episode: Episode): void {
+    this.storage.set('episode_' + episodeId + 'from_' + podcastId, episode)
+  }
+
   private async getPodcastsFromApi(): Promise<Podcast[]> {
-    const rawResponse: PodcastAPIResponse = await this.httpClient.get(
+    const rawResponse: AllowOriginsResponse = await this.httpClient.get(
       '/us/rss/toppodcasts/limit=100/genre=1310/json'
     )
     return rawToPodcast(rawResponse)
   }
 
   private async getEpisodesFromApi(podcastId: string): Promise<Episode[]> {
-    const rawResponse: EpisodesAPIResponse = await this.httpClient.get(
+    const rawResponse: AllowOriginsResponse = await this.httpClient.get(
       `/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=1000`
     )
     return rawToEpisodes(rawResponse)
@@ -108,7 +114,14 @@ export class ApiPodcastRepository implements PodcastRepository {
   }
 
   async getEpisodeById(id: string, podcastId: string): Promise<Episode | undefined> {
-    const episodes = await this.getEpisodesFromApi(podcastId)
-    return episodes.find((episode) => episode.id === id)
+    const episodeCache = this.getEpisodeFromCache(podcastId, id)
+    if (episodeCache) return episodeCache
+
+    const episodes =
+      this.getEpisodesFromCache(podcastId) || (await this.getEpisodesFromApi(podcastId))
+    const episode = episodes.find((episode) => episode.id === id)
+    if (episode) this.setEpisodeToCache(podcastId, id, episode)
+
+    return episode
   }
 }

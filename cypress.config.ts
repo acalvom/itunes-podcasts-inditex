@@ -14,6 +14,7 @@ export default defineConfig({
   env: {
     appUrl: 'http://localhost:3000',
     apiUrl: 'https://itunes.apple.com',
+    // https://api.allorigins.win/get?url=https%3A%2F%2Fitunes.apple.com%2Fus%2Frss%2Ftoppodcasts%2Flimit%3D100%2Fgenre%3D1310%2Fjson
   },
   e2e: {
     testIsolation: false,
